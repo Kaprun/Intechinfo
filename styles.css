@@ -1,0 +1,64 @@
+.pages
+{
+   height: 100px;
+   width:  1900px;
+   background-color: black;
+   
+}
+
+
+
+
+.pages1
+{
+   color: black;
+   font-size: 50px;
+   text-align: center;
+    background-color: blanchedalmond;
+}   
+
+
+
+.first
+{
+   height: 100px;
+   width:  1900px;
+   background-color: black;
+   
+}
+
+
+
+
+.text2
+{
+   color: blanchedalmond;
+   font-size: 50px;
+   text-align: center;
+}   
+
+
+.Hautdepages
+{
+   height: 60px;
+   width:  1900px;
+   background-color:bisque;
+   color: blanchedalmond; 
+}
+
+.text1
+{
+   color: black;
+   float: left;
+   padding-left: 50px;
+   font-size: 25px;
+
+}
+
+.séparer
+{
+   height: 10px;
+   width:  1900px;
+   background-color: black;
+   
+}

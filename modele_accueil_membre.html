@@ -1,0 +1,51 @@
+<html>
+    <head>
+
+
+        <title> Intech'life</title>
+        <meta name="description" content="Intech'life'">
+        <link rel="stylesheet" href="styles.css">
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+
+<div class="first">
+
+<p class="text2">Accueil </p>    
+</div>
+
+
+<div class="Hautdepages">
+<p class="text1"> Commisariat </p>
+<p class="text1">  Mairie</p>
+<p class="text1"> Hopital </p>
+<p class="text1"> Centre-Ville </p>
+<p class="text1"> Centre commerciale </p>
+<p class="text1"> Boulangerie </p>
+<p class="text1"> Boucherie </p>
+</div>
+<div class="séparer"> </div>
+<div class="divinventaire"> </div>
+
+<script>if('{inventaire}' === 'undefined') 
+{
+    
+    
+   
+    $(".divinventaire").append("<h1 style='Color:red'> HUHU ERROR </h1> ");
+}
+else
+{
+    var listinventaire = JSON.parse('{inventaire}');
+    listinventaire.forEach(function(element) {
+  if(element.user == '{pseudo}')
+  $(".divinventaire").append("<h1 style='Color:red'> "+element.nameobjet +" X "+ element.nb+" </h1> ");
+});
+}
+
+
+
+</script> 
+{pseudo}
+</body>
+</html>
