@@ -74,5 +74,19 @@ var traite_requete = function (req, res) {
 
 var mon_serveur = http.createServer(traite_requete);
 var port = 8080;
+
+// Chargement de socket.io
+var io = require('socket.io').listen(mon_serveur);
+
+// Quand un client se connecte, on le note dans la console
+io.sockets.on('connection', function (socket) {
+    console.log('Un client est connecté !');
+    socket.on('test', function(pseudo,text) {
+        console.log(text);
+        socket.emit('message', pseudo,text);
+        socket.broadcast.emit('message', pseudo, text);
+
+    });
+});
 console.log("Serveur en ecoute sur port 127.0.0.1: " + port);
 mon_serveur.listen(port);
