@@ -224,7 +224,7 @@ function AddDeleteArreter(pseudo,arreter)
     }
 }
 });
-console.log("Serveur en ecoute sur port 0.0.0.0: " + port);
+console.log("Serveur en ecoute sur port 127.0.0.1: " + port);
 mon_serveur.listen(port);
 
 
