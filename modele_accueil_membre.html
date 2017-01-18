@@ -51,10 +51,12 @@ else
 <script src="/socket.io/socket.io.js"></script>
         <script>
         var pseudo = '{pseudo}';
-            var socket = io.connect('http://localhost:8080');
+            var socket = io.connect('http://kaprun.oblatif.com:8080');
             $('#poke').click(function () {
                 var message = $('#messqge').val();
                 socket.emit('test', pseudo,message);
+
+                $('#messqge').val('');
             })
 
 
@@ -62,7 +64,7 @@ else
                $('.divinventaire').append(pseudo + ' : ' + messageserv + '<br />');
               
 $(".divinventaire").scrollTop($(".divinventaire")[0].scrollHeight);
-               $('#messqge').val('');
+               
             });
         </script>
 </body>
