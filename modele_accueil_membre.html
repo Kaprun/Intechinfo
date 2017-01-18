@@ -58,7 +58,13 @@ else
 
                 $('#messqge').val('');
             })
+$('#messqge').keypress(function( event ) {
+  if ( event.which == 13 ) {
+     var message = $('#messqge').val();
+                socket.emit('test', pseudo,message);
 
+                $('#messqge').val('');
+}});
 
             socket.on('message', function(pseudo, messageserv) {
                $('.divinventaire').append(pseudo + ' : ' + messageserv + '<br />');
