@@ -3,7 +3,7 @@
 var http = require("http");
 var url = require("url");
 var querystring = require("querystring");
-
+var fs = require("fs");
 //-------------------------------------------------------------------------
 // DECLARATION DES DIFFERENTS MODULES CORRESPONDANT A CHAQUE ACTION
 //-------------------------------------------------------------------------
@@ -74,19 +74,158 @@ var traite_requete = function (req, res) {
 
 var mon_serveur = http.createServer(traite_requete);
 var port = 8080;
+var contenuBan;
+var listBan;
 
 // Chargement de socket.io
 var io = require('socket.io').listen(mon_serveur);
 
 // Quand un client se connecte, on le note dans la console
 io.sockets.on('connection', function (socket) {
-    console.log('Un client est connecté !');
+    
     socket.on('test', function(pseudo,text) {
-        console.log(text);
-        socket.emit('message', pseudo,text);
-        socket.broadcast.emit('message', pseudo, text);
+        if(GetCommand(text,pseudo))
+        {
+            var subcommand = "/arreter ";
+            var pseudoArreter = text.replace(subcommand,"");
+            if(GetMuted(pseudoArreter))
+            {
+                    AddDeleteArreter(pseudoArreter,false);
+                    socket.emit('message', pseudo,pseudoArreter+ "est sortie de prison");
+                    socket.broadcast.emit('message', pseudo,pseudoArreter+ " est sortie de prison");
+            }
+            else
+            {
+                    AddDeleteArreter(pseudoArreter,true);
+                    socket.emit('message', pseudo,pseudoArreter+ " est en prison");
+                    socket.broadcast.emit('message', pseudo,pseudoArreter+ " est en prison")
+            }
+        
+        }
+        else
+        {
+
+        
+            if(!GetMuted(pseudo))
+            {
+                socket.emit('message', pseudo,text);
+                socket.broadcast.emit('message', pseudo, text);
+            }
+            else
+            socket.emit('message', pseudo,"Tu es en prison");
+        }
 
     });
+
+    function GetCommand(text ,pseudo)
+{
+    var subcommand = "/arreter ";
+
+    if(text.includes(subcommand))
+    {
+
+        var contenu_fichier = fs.readFileSync("membres.json", 'utf-8');    
+   var listeMembres = JSON.parse(contenu_fichier);
+
+   for(var i = 0; i < listeMembres.length; i++)
+   {
+       if(listeMembres[i].pseudo == pseudo)
+       {
+           if(listeMembres[i].factionID != 1)
+           {
+               socket.emit('message', "serveur","pas l'autoriter pour faire ca");
+            return false;
+           }
+       }
+   }
+        var pseudoArreter = text.replace(subcommand,"");
+        pseudoArreter = pseudoArreter.replace(/\s/g, "");
+        
+        if(GetPseudoExist(pseudoArreter))
+        {
+        console.log("Pseudo arreter existe");
+        
+        return true;
+        }
+        else
+        {
+        console.log("Pseudo arreter existe pas");
+        socket.emit('message', "serveur",pseudoArreter+" existe pas");
+        return false;
+        }
+        
+    }
+    return false;
+}
+
+function GetPseudoExist(pseudo)
+{
+   var contenu_fichier = fs.readFileSync("membres.json", 'utf-8');    
+   var listeMembres = JSON.parse(contenu_fichier);
+
+   for(var i = 0; i < listeMembres.length; i++)
+   {
+       if(listeMembres[i].pseudo == pseudo)
+       {
+           return true;
+       }
+   }
+}
+
+function GetMuted(pseudo)
+{
+    var contenu_fichier = fs.readFileSync("arreter.json", 'utf-8');    
+        var listeArreter = JSON.parse(contenu_fichier);
+for(var i = 0; i < listeArreter.length;i++)
+        {
+            if(listeArreter[i].pseudo == pseudo)
+            {
+                console.log("muted");
+            return true;
+            }
+            
+        }
+
+console.log("pas muted");
+        return false;
+}
+
+function AddDeleteArreter(pseudo,arreter)
+{
+    if(arreter)
+    {
+        var contenu_fichier = fs.readFileSync("arreter.json", 'utf-8');    
+        var listeArreter = JSON.parse(contenu_fichier);
+
+        var arreternew = {};
+        arreternew.pseudo = pseudo;
+
+        listeArreter[listeArreter.length] = arreternew;
+
+        contenu_fichier = JSON.stringify(listeArreter);
+
+        fs.writeFileSync("arreter.json", contenu_fichier, 'utf-8');
+    }
+    else
+    {
+        var contenu_fichier = fs.readFileSync("arreter.json", 'utf-8');    
+        var listeArreter = JSON.parse(contenu_fichier);
+
+        for(var i = 0; i < listeArreter.length;i++)
+        {
+            if(listeArreter[i].pseudo == pseudo)
+            listeArreter.splice(i,1);
+            
+        }
+
+        contenu_fichier = JSON.stringify(listeArreter);
+
+        fs.writeFileSync("arreter.json", contenu_fichier, 'utf-8');
+    }
+}
 });
 console.log("Serveur en ecoute sur port 127.0.0.1: " + port);
 mon_serveur.listen(port);
+
+
+

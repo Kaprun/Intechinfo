@@ -62,3 +62,11 @@
    background-color: black;
    
 }
+
+.divinventaire
+{
+    height:  200px;
+    width:  800px;
+    background-color: brown;
+    overflow-y: scroll;
+}

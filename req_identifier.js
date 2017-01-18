@@ -29,7 +29,9 @@ var trait = function (req, res, query) {
     i = 0;
     while(i<listeMembres.length && trouve === false) {
         if(listeMembres[i].pseudo === query.pseudo) {
+            console.log(listeMembres[i].pseudo);
             if(listeMembres[i].password === query.password) {
+                console.log(listeMembres[i].password);
                 trouve = true;
             }
         }

@@ -26,7 +26,7 @@
 </div>
 <div class="séparer"> </div>
 <div class="divinventaire"> </div>
-<p><input type="button" value="Embêter le serveur" id="poke" /></p>
+<p style="float: left"><input type="button" value="Envoyer" id="poke" /></p>
 <p><input type="text" id="messqge" /> </p>
 <script>if('{inventaire}' === 'undefined') 
 {
@@ -60,9 +60,10 @@ else
 
             socket.on('message', function(pseudo, messageserv) {
                $('.divinventaire').append(pseudo + ' : ' + messageserv + '<br />');
+              
+$(".divinventaire").scrollTop($(".divinventaire")[0].scrollHeight);
                $('#messqge').val('');
             });
         </script>
-{pseudo}
 </body>
 </html>
