@@ -73,7 +73,7 @@ var traite_requete = function (req, res) {
 //-------------------------------------------------------------------------
 
 var mon_serveur = http.createServer(traite_requete);
-var port = 8080;
+var port = 80;
 var contenuBan;
 var listBan;
 
