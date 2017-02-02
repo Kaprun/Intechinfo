@@ -12,10 +12,10 @@ var trait = function (req, res, query) {
 	var page;
     var nouveauMembre;
     var contenu_fichier;
-    var listeMembres;
+    var newFichier;
+	var listeMembres;
     var i;
     var trouve;
-	var newFichier;
 
     // ON LIT LES COMPTES EXISTANTS
 
@@ -40,12 +40,11 @@ var trait = function (req, res, query) {
         nouveauMembre.pseudo = query.pseudo;
         nouveauMembre.password = query.password;
         nouveauMembre.role = query.role;
-        nouveauMembre.factionID = 0;
 		listeMembres[listeMembres.length] = nouveauMembre;
-	
-		contenu_fichier = JSON.stringify(listeMembres);
-        fs.writeFileSync("membres.json", contenu_fichier, 'utf-8');
 
+        contenu_fichier = JSON.stringify(listeMembres);
+
+        fs.writeFileSync("membres.json", contenu_fichier, 'utf-8');
 
 		var newMembre = {};
 		newMembre.pseudo = query.pseudo;
@@ -54,7 +53,7 @@ var trait = function (req, res, query) {
 
 		newFichier = JSON.stringify(newMembre);
 		fs.writeFileSync(query.pseudo+".json", newFichier, "utf-8");
-	}
+    }
     
 
     // ON RENVOIT UNE PAGE HTML 
@@ -72,7 +71,7 @@ var trait = function (req, res, query) {
     } else {
         // SI CREATION OK, ON ENVOIE PAGE DE CONFIRMATION
 
-        page = fs.readFileSync('modele_confirmation_inscription.html', 'UTF-8');
+        page = fs.readFileSync('modele_confirmation_ajout.html', 'UTF-8');
 
         marqueurs = {};
         marqueurs.pseudo = query.pseudo;
@@ -84,9 +83,8 @@ var trait = function (req, res, query) {
     res.writeHead(200, {'Content-Type': 'text/html'});
     res.write(page);
     res.end();
-}	;
+};
 
 //---------------------------------------------------------------------------
 
 module.exports = trait;
-

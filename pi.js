@@ -3,21 +3,28 @@
 var http = require("http");
 var url = require("url");
 var querystring = require("querystring");
-var fs = require("fs");
+var fs =require("fs");
+
 //-------------------------------------------------------------------------
 // DECLARATION DES DIFFERENTS MODULES CORRESPONDANT A CHAQUE ACTION
 //-------------------------------------------------------------------------
 
 var req_commencer = require("./req_commencer.js");
+
 var req_afficher_formulaire_inscription = require("./req_afficher_formulaire_inscription.js");
 var req_inscrire = require("./req_inscrire.js");
+var req_inscrire1 = require("./req_inscrire1.js");
 var req_identifier = require("./req_identifier.js");
-var req_juju = require("./req_juju.js");
-var req_ex = require("./Exemple.js");
+var req_inventaire = require("./req_inventaire.js");
 var req_static = require("./req_static.js");
 var req_erreur = require("./req_erreur.js");
+var req_identifieradmin = require('./req_identifieradmin.js');
+var req_supprimer = require("./req_supprimer.js");
+var req_ajouter = require("./req_ajouter.js");
+//var req_juju = require("./req_juju.js");
+var req_chat = require("./req_chat.js");
+//var app = require("./app.js");
 
-//-------------------------------------------------------------------------
 // FONCTION DE CALLBACK APPELLEE POUR CHAQUE REQUETE
 //-------------------------------------------------------------------------
 
@@ -30,33 +37,53 @@ var traite_requete = function (req, res) {
 
     console.log("URL reçue : " + req.url);
     requete = url.parse(req.url, true);
-    pathname = requete.pathname;
-    query = requete.query;
+	pathname = requete.pathname;
+	query = requete.query;
 
     // ROUTEUR
 
     try {
         switch (pathname) {
             case '/':
-            case '/req_juju':
-                req_juju(req, res, query);
+  //          case '/req_juju':
+	//		      req_juju(req, res, query);
+	//	        break;
+			case '/req_commencer':
+                req_commencer(req, res, query);
                 break;
             case '/req_afficher_formulaire_inscription':
                 req_afficher_formulaire_inscription(req, res, query);
                 break;
-                case '/req_commencer':
-                req_commencer(req, res, query);
-                break;
             case '/req_inscrire':
                 req_inscrire(req, res, query);
                 break;
-            case '/req_identifier':
+			case '/req_inventaire' : 
+				req_inventaire(req, res, query);
+				break;
+         	case '/req_inscrire1':
+				req_inscrire1(req, res, query);
+				break;
+            case '/req_supprimer' : 
+                req_supprimer(req, res, query);
+		 	case '/req_identifier':
                 req_identifier(req, res, query);
                 break;
-            case '/exmple':
-                req_ex(req, res, query);
-                break;
-            default:
+			case '/req_identifieradmin':
+			req_identifieradmin(req, res, query);
+			break;
+			case '/admin':
+				admin(req, res, query);
+            break;
+			case '/req_ajouter':
+			req_ajouter(req, res, query);
+			break;
+			case '/req_chat':
+			req_chat(req, res, query);
+			break;
+//			case '/app' :
+//			app(req, res, query);
+//			break;
+			default:
                 req_static(req, res, pathname);
                 break;
         }

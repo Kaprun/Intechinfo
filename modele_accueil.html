@@ -2,40 +2,49 @@
 <html>
 
 <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="style.css">
 
-
+{erreur}
 
 
 
 <body>
+    <style>
+    body  {
+    background-image: url("55558.jpg");
+}
+</style>
     <div class="pages">
 
 <p class="pages1">INTECH'LIFE </p>    
 </div>
-
+<p class="presentation">
 <form action="/req_identifier" method="GET"> 
-   <CENTER> <input type="text" name="pseudo" value="{pseudo}"> 
+   <CENTER> <input class = "con" type="text" name="pseudo" value="{pseudo}"> 
     <br/>
-        <label></label><input type="password" name="password" value="">
+    </br>
+        <label></label><input class = "con" type="password" name="password" value="">
     <br/>
-    <input type="submit" name="action" value="Se connecter">
+    </br>
+	<select class = "Role" name="role">
+		<option value="Policier">Policier</option>
+		<option value="Vilain">Vilain</option>
+		<option value="Citoyen">Citoyen</option>
+	</select>
+    </br>
+    <br/>
+				<input class = "seconnecter" type="submit" value="Se connecter"/> 
+	</p>
 </form>
-
-
-
+<br/>
 <form action="/req_afficher_formulaire_inscription" method="GET">
-    <button name="action" value="creer">Inscription</button></CENTER>
+    <button class = "inscription" name="action" value="creer">Inscription</button></CENTER>
 </form>
-
- <script src="/socket.io/socket.io.js"></script>
+<script src="/socket.io/socket.io.js"></script>
         <script>
             var socket = io.connect('http://localhost:8080');
         </script>
 {erreur}
-
 </body>
 
 </html>
-
-

@@ -2,19 +2,29 @@
 <html>
 
 <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
-<link rel="stylesheet" href="styles.css">
-<h2>Formulaire de création de compte</h2>
+
+<CENTER><h2>Formulaire de création de compte</h2>
 
 {erreur}
 <p/>
-<link rel="stylesheet" href="styles.css">
-<form action="/req_inscrire" method="GET">
-    <label>Pseudo : </label><input type="text" name="pseudo" value="{pseudo}">
-    <br/>
-    <label>Password : </label><input type="password" name="password" value="">
-    <br/>
-    <button name="action" value="creer">Créer compte</button>
-</form>
 
+<form action="/req_inscrire" method="GET">
+    <label>Pseudo 	: </label><input type="text" name="pseudo" value="{pseudo}">
+    <br/>
+    <br/>
+	<label>Password : </label><input type="password" name="password" value="">
+	<br/>
+	<br/>
+<p>Choisissez ce que vous voulez etre, il n'y a aucune limite!</p>
+    <select name ="role">
+        <option value="Policier">Policier</option>
+        <option value="Vilain">Vilain</option>
+        <option value="Citoyen">Citoyen</option>
+    </select>
+	</br>
+  	</br>
+  	<button name="action" value="creer">Créer compte</button></CENTER>
+</form>
 </html>
+
 

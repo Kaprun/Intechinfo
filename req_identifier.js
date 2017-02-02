@@ -8,39 +8,40 @@ var trait = function (req, res, query) {
     var marqueurs;
     var pseudo;
     var password;
-    var page;
-    var membre;
+    var role;
+	var page;
+    var user;
     var contenu_fichier;
     var listeMembres;
     var i;
     var trouve;
-    var listinventaire;
+	var listeinventaire;
 
     // ON LIT LES COMPTES EXISTANTS
 
-    contenu_fichier = fs.readFileSync("membres.json", 'utf-8');    
-    listeMembres = JSON.parse(contenu_fichier);
+   	contenu_fichier = fs.readFileSync("membres.json", 'utf-8');    
 
+	listeMembres = JSON.parse(contenu_fichier);
 
-
-    // ON VERIFIE QUE LE PSEUDO/PASSWORD EXISTE
+    // ON VERIFIE QUE LE PSEUDO/PASSWORD/ROLE EXISTE
 
     trouve = false;
     i = 0;
     while(i<listeMembres.length && trouve === false) {
-        if(listeMembres[i].pseudo === query.pseudo) {
-            console.log(listeMembres[i].pseudo);
+		if(listeMembres[i].pseudo === query.pseudo) {
             if(listeMembres[i].password === query.password) {
-                console.log(listeMembres[i].password);
-                trouve = true;
+               if(listeMembres[i].role === query.role) {
+			   trouve = true;
             }
         }
-        i++;
-    }
+       }
+		i++;
+   
+}
+ 
+ listeinventaire = fs.readFileSync("inventaire.json", 'utf-8');
 
-listinventaire = fs.readFileSync("inventaire.json", 'utf-8');
-  
-    // ON RENVOIT UNE PAGE HTML 
+ // ON RENVOIT UNE PAGE HTML 
 
     if(trouve === false) {
         // SI IDENTIFICATION INCORRECTE, ON REAFFICHE PAGE ACCUEIL AVEC ERREUR
@@ -48,21 +49,26 @@ listinventaire = fs.readFileSync("inventaire.json", 'utf-8');
         page = fs.readFileSync('modele_accueil.html', 'utf-8');
 
         marqueurs = {};
-        marqueurs.erreur = "ERREUR : compte ou mot de passe incorrect";
+        marqueurs.erreur = "ERREUR : l'un des identifiants est incorrects";
         marqueurs.pseudo = query.pseudo;
+		marqueurs.role = query.role;
         page = page.supplant(marqueurs);
 
-    } else {
+
+}	
+	else {
         // SI IDENTIFICATION OK, ON ENVOIE PAGE ACCUEIL MEMBRE
 
         page = fs.readFileSync('modele_accueil_membre.html', 'UTF-8');
 
         marqueurs = {};
         marqueurs.pseudo = query.pseudo;
-        
-        marqueurs.inventaire = listinventaire;
-        page = page.supplant(marqueurs);
+       	marqueurs.role = query.role;
+	   	marqueurs.inventaire = listeinventaire;
+	   page = page.supplant(marqueurs);
     }
+			
+			page = page.supplant(marqueurs);
 
     res.writeHead(200, {'Content-Type': 'text/html'});
     res.write(page);

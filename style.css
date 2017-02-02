@@ -1,0 +1,110 @@
+.pages
+{
+   height: 100px;
+   width:  1900px;
+   background-color: black;
+   
+}
+
+
+
+
+.pages1
+{
+   color: black;
+   font-size: 60px;
+   text-align: center;
+    background-color: white;
+}   
+
+
+
+.first
+{
+   height: 100px;
+   width:  1900px;
+   background-color: black;
+   
+}
+
+
+
+
+.text2
+{
+   color:white;
+   font-size: 70px;
+   text-align: center;
+}   
+
+
+.Hautdepages
+{
+   height: 60px;
+   width:  1900px;
+   background-color:white;
+   color:white; 
+}
+
+.text1
+{
+   color: black;
+   float: left;
+   padding-left: 50px;
+   font-size: 25px;
+
+}
+
+.séparer
+{
+   height: 10px;
+   width:  1900px;
+   background-color: black;
+   
+}
+
+.divinventaire
+{
+    height:  200px;
+    width:  800px;
+    background-color: brown;
+    overflow-y: scroll;
+}
+.presentation
+{
+   margin-bottom: 50px; 
+   size: 50px;
+   width: 100%;
+}
+.Role
+{
+    text-align: center;
+    width: 10%;
+    size: 20%;
+    font-size: 120%;
+    font-weight: 50%;
+    font-family: "Times New Roman", Times, Serif;
+}
+.con
+{
+width: 20%;
+font-family: "Times New Roman", Times, Serif;
+font-size: 120%;
+font-weight: 50%;
+}
+.seconnecter
+{
+   width: 10%;
+    size: 20%;
+    font-size: 120%;
+    font-weight: 50%;
+    font-family: "Times New Roman", Times, Serif;  
+}
+.inscription
+{
+     width: 10%;
+    size: 20%;
+    font-size: 120%;
+    font-weight: 50%;
+    font-family: "Times New Roman", Times, Serif;
+}
