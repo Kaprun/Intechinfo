@@ -34,14 +34,14 @@
     
     
    
-    $(".divinventaire").append("<h1 style='Color:red'> HUHU ERROR </h1> ");
+    $(".divinventaire").append("<h1 style='Color:white'> HUHU ERROR </h1> ");
 }
 else
 {
     var listinventaire = JSON.parse('{inventaire}');
     listinventaire.forEach(function(element) {
   if(element.user == '{pseudo}')
-  $(".divinventaire").append("<h1 style='Color:red'> "+element.nameobjet +" X "+ element.nb+" </h1> ");
+  $(".divinventaire").append("<h1 style='Color:white'> "+element.nameobjet +" X "+ element.nb+" </h1> ");
 });
 }
 
