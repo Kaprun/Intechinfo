@@ -49,7 +49,7 @@ var trait = function (req, res, query) {
         page = fs.readFileSync('modele_accueil.html', 'utf-8');
 
         marqueurs = {};
-        marqueurs.erreur = "ERREUR : l'un des identifiants est incorrects";
+        marqueurs.erreur = "ERREUR : l'un des identifiants est incorrect";
         marqueurs.pseudo = query.pseudo;
 		marqueurs.role = query.role;
         page = page.supplant(marqueurs);
